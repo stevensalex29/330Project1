@@ -75,3 +75,30 @@
 		ctx.stroke();  
 		ctx.restore();
 	}
+
+	// makes given color
+	function makeColor(red, green, blue, alpha){
+		var color='rgba('+red+','+green+','+blue+', '+alpha+')';
+		return color;
+	}
+
+	// return random rgb color
+	function randomColor(){
+		return 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+	}
+
+	// return string of current hour min sec from seconds input
+	function secondsDisplay(sec) {
+		// calculate hours seconds and minutes
+    	sec = Number(sec);
+	    let hours = Math.floor(sec / 3600);
+	    let minutes = Math.floor(sec % 3600 / 60);
+	    let seconds = Math.floor(sec % 3600 % 60);
+
+	    // display after calculation
+	    let hDisplay = hours > 0 ? hours + (hours == 1 ? " hr, " : " hrs, ") : "";
+	    let mDisplay = minutes > 0 ? minutes + (minutes == 1 ? " min, " : " mins, ") : "";
+	    let sDisplay = seconds > 0 ? seconds + (seconds == 1 ? " sec" : " secs") : "";
+	    if(hours == 0 && seconds == 0 && minutes == 0) return "0 secs";
+	    else return hDisplay + mDisplay + sDisplay; 
+	}

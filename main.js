@@ -10,10 +10,11 @@
 			sound2: "media/Peanuts Theme.mp3",
 			sound3:  "media/The Picard Song.mp3"
 		});
-		let maxRadius = 200;
 		let brightnessAmount = 0;
-		let invert = false, tintRed = false, noise = false, sepia = false;
+		let invert = false, tintRed = false, noise = false, sepia = false, wav = false;
 		let delayNode;
+		let img, disc;
+		let ang = 0;
 		
 		// 2 - elements on the page
 		let audioElement,canvasElement;
@@ -22,7 +23,7 @@
 		let playButton;
 		
 		// 3 - our canvas drawing context
-		let drawCtx
+		let drawCtx;
 		
 		// 4 - our WebAudio context
 		let audioCtx;
@@ -89,6 +90,8 @@
 		function setupCanvas(){
 			canvasElement = document.querySelector('canvas');
 			drawCtx = canvasElement.getContext("2d");
+			img = document.querySelector("#background");
+			disc = document.querySelector("#disco");
 		}
 		
 		function setupUI(){
@@ -109,10 +112,6 @@
 					audioElement.pause();
 					e.target.dataset.playing = "no";
 				}
-			// set initial value of sliders
-			document.querySelector("#cI").innerHTML = "200";
-			document.querySelector("#bI").innerHTML = "0";
-			document.querySelector("#dI").innerHTML = "0";
 			};
 			
 			let volumeSlider = document.querySelector("#volumeSlider");
@@ -138,6 +137,10 @@
 			document.querySelector("#fsButton").onclick = _ =>{
 				requestFullscreen(canvasElement);
 			};
+
+			// set initial value of sliders
+			document.querySelector("#bI").innerHTML = "0";
+			document.querySelector("#dI").innerHTML = "0";
 			
 		}
 		
@@ -153,27 +156,22 @@
 			
 			// populate the audioData with the frequency data
 			// notice these arrays are passed "by reference" 
-			analyserNode.getByteFrequencyData(audioData);
-		
-			// OR
-			//analyserNode.getByteTimeDomainData(audioData); // waveform data
+			let mode = document.querySelector("#modeSelect").value;
+			if(mode == "frequency"){
+				analyserNode.getByteFrequencyData(audioData); // frequency data
+				wav = false;
+			}
+			else{
+				analyserNode.getByteTimeDomainData(audioData); // waveform data
+				wav = true;
+			}
+			
 
 			// slider code
-			let slider = document.querySelector("#myRange");
 			let slider2 = document.querySelector("#myRange2");
 			let delaySlider = document.querySelector("#delaySlider");
-			let output = document.querySelector("#demo");
 			let output2 = document.querySelector("#bright");
 			let output3 = document.querySelector("#demo2");
-
-
-
-			// set value on change
-			slider.oninput = function(){
-				document.querySelector("#cI").innerHTML = "";
-				output.innerHTML= this.value;
-				maxRadius= parseInt(this.value);
-			}
 
 			slider2.oninput = function(){
 				document.querySelector("#bI").innerHTML = "";
@@ -188,8 +186,10 @@
 				delayNode.delayTime.value = parseFloat(this.value);
 			}
 
+			// update track time
+			document.querySelector("#trackTime").innerHTML = "Track Time: " + secondsDisplay(audioElement.currentTime) +
+			 " / " + secondsDisplay(audioElement.duration);
 
-			
 
 			// filter code
 			let tint = document.querySelector("#tint"), inv = document.querySelector("#invert"), nois = document.querySelector("#noise"), sep = document.querySelector("#sepia");
@@ -200,72 +200,58 @@
 
 			
 			// DRAW!
-			drawCtx.clearRect(0,0,800,600);  
+			// clear canvas
+			drawCtx.clearRect(0,0,800,600); 
+			// draw base image
+			drawCtx.drawImage(img,  0, 0);
+			// draw stage lights
+			lights(); 
+			// draw disco ball
+			disco();
+			// To Do triangle lasers that rotate and shoot arc lasers by clicking button
+			// manipulate pixels for visualizer
+			manipulatePixels(drawCtx,canvasElement);	 
+		} 
+
+		// draw disco ball for visualizer
+		function disco(){
+			drawCtx.save();
+			drawRectangle(drawCtx,canvasElement.width/2,40,10,30,"black");
+			drawCtx.translate(canvasElement.width/2+5, 100); 
+			var grad = drawCtx.createRadialGradient(0, 0, 5, 0, 0, 30);
+            grad.addColorStop(0, 'white');
+            grad.addColorStop(1, 'black');
+			drawCircle(drawCtx,0,0,30,grad,"black",0,0,Math.PI*2);  
+			drawCtx.restore();
+		}
+
+		// draw lines for visualizer
+		function lights(){
+			drawCtx.save();
 			let barWidth = 4;
 			let barSpacing = 1;
 			let barHeight = 100;
 			let topSpacing = 50;
-			
+
 			// loop through the data and draw!
-			for(let i=0; i<audioData.length; i++) { 
-				//drawCtx.fillStyle = 'rgba(0,255,0,0.6)'; 
-				
-				// the higher the amplitude of the sample (bin) the taller the bar
-				// remember we have to draw our bars left-to-right and top-down
-				// drawCtx.fillRect(i * (barWidth + barSpacing),topSpacing + 256-audioData[i],barWidth,barHeight); 
-
-				// add circle effects
-				// red-ish circles
-				let percent = audioData[i] / 255;
-				let circleRadius = percent * maxRadius;
-				drawCtx.beginPath();
-				drawCtx.fillStyle = makeColor(255, 111, 111, .34 - percent/3.0);
-				drawCtx.arc(canvasElement.width/2, canvasElement.height/2, circleRadius, 0, 2 * Math.PI, false);
-				drawCtx.fill();
-				drawCtx.closePath();
-
-				// blue-ish circles, bigger, more transparent
-				drawCtx.beginPath();
-				drawCtx.fillStyle = makeColor(0, 0, 255, .10 - percent/10.0);
-				drawCtx.arc(canvasElement.width/2, canvasElement.height/2, circleRadius * 1.5, 0, 2 * Math.PI, false);
-				drawCtx.fill();
-				drawCtx.closePath();
-
-				// yellow-ish circles, smaller
-				drawCtx.save();
-				drawCtx.beginPath();
-				drawCtx.fillStyle = makeColor(200, 200, 0, .5 - percent/5.0);
-				drawCtx.arc(canvasElement.width/2, canvasElement.height/2, circleRadius * .50, 0, 2 * Math.PI, false);
-				drawCtx.fill();
-				drawCtx.closePath();
-				drawCtx.restore();
-
-
+			for(let i=0; i<audioData.length; i+=15) { 
 				// draw lines
-				drawCtx.strokeStyle = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
-				drawCtx.beginPath();
-				drawCtx.moveTo(canvasElement.width/2, 0);
-				drawCtx.lineTo(640 - i * (barWidth + barSpacing),canvasElement.height/2 + audioData[i] -20);
-				drawCtx.stroke();
-				drawCtx.closePath();
-
-				drawCtx.strokeStyle = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
-				drawCtx.beginPath();
-				drawCtx.moveTo(canvasElement.width/2, canvasElement.height);
-				drawCtx.lineTo(i * (barWidth + barSpacing),canvasElement.height/2 + audioData[i] + 50);
-				drawCtx.stroke();
-				drawCtx.closePath();
+				if(!wav) drawLine(drawCtx,canvasElement.width/2+5,100,640 - i * (barWidth + barSpacing)+getRandom(5,20),
+					canvasElement.height/2 + audioData[i],randomColor(),5); 
+				else {
+					drawLine(drawCtx,canvasElement.width/2+5,100,640 - i * (barWidth + barSpacing),
+					canvasElement.height/2 + audioData[i] -20,randomColor(),5);
+				}
 			}
-
-			manipulatePixels();	 
-		} 
+			drawCtx.restore();
+		}
 		
 		// MANIPULATE PIXELS
-		function manipulatePixels(){
+		function manipulatePixels(ctx,element){
 			// i) Get all of the rgba pixel data of the canvas by grabbing the
 			// ImageData Object
 			// https://developer.mozilla.org/en-US/docs/Web/API/ImageData
-			let imageData = drawCtx.getImageData(0, 0, canvasElement.width, canvasElement.height);
+			let imageData = ctx.getImageData(0, 0, element.width, element.height);
 
 			// ii) imageData.data is an 8-bit typed array - values range from 0-255
 			// imageData.data contains 4 values per pixel: 4 x canvas.width x
@@ -321,13 +307,7 @@
 			}
 
 			// put the modified data back on the canvas
-			drawCtx.putImageData(imageData, 0, 0);
-		}
-
-		// HELPER FUNCTIONS
-		function makeColor(red, green, blue, alpha){
-   			var color='rgba('+red+','+green+','+blue+', '+alpha+')';
-   			return color;
+			ctx.putImageData(imageData, 0, 0);
 		}
 		
 		function requestFullscreen(element) {
