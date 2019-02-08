@@ -11,8 +11,9 @@
 			sound3:  "media/The Picard Song.mp3"
 		});
 		let brightnessAmount = 0;
-		let laserRotation = 0;
-		let invert = false, tintRed = false, noise = false, sepia = false, wav = false;
+		let laserRotation = -.2;
+		let fired = false;
+		let invert = false, noise = false, sepia = false, wav = false;
 		let delayNode;
 		let img, disc;
 		let ang = 0;
@@ -158,8 +159,8 @@
 			
 			// populate the audioData with the frequency data
 			// notice these arrays are passed "by reference" 
-			let mode = document.querySelector("#modeSelect").value;
-			if(mode == "frequency"){
+			let mode = document.querySelector("#mode1");
+			if(mode.checked){
 				analyserNode.getByteFrequencyData(audioData); // frequency data
 				wav = false;
 			}
@@ -168,7 +169,6 @@
 				wav = true;
 			}
 			
-
 			// slider code
 			let slider2 = document.querySelector("#myRange2");
 			let delaySlider = document.querySelector("#delaySlider");
@@ -193,10 +193,9 @@
 
 			slider3.oninput = function(){
 				document.querySelector("#LI").innerHTML = "";
-				laserRotation = parseInt(this.value);
-				if(laserRotation < 0) output1.innerHTML = this.value;
-				else if(laserRotation ==0) output1.innerHTML=this.value;
-				else output1.innerHTML = "+" + this.value;
+				let s = -.2;
+				laserRotation = s + (.1*this.value);
+				output1.innerHTML = this.value;
 			}
 
 			// update track time
@@ -205,11 +204,11 @@
 
 
 			// filter code
-			let tint = document.querySelector("#tint"), inv = document.querySelector("#invert"), nois = document.querySelector("#noise"), sep = document.querySelector("#sepia");
-			tint.checked == true ? tintRed=true : tintRed = false;
+			let inv = document.querySelector("#invert"), nois = document.querySelector("#noise"), sep = document.querySelector("#sepia"), fire = document.querySelector("#laser");
 			inv.checked == true ? invert=true : invert = false;
 			nois.checked == true ? noise=true : noise = false;
 			sep.checked == true ? sepia=true : sepia = false;
+			fire.checked == true ? fired=true : fired = false;
 
 			
 			// DRAW!
@@ -217,6 +216,8 @@
 			drawCtx.clearRect(0,0,800,600); 
 			// draw base image
 			drawCtx.drawImage(img,  0, 0);
+			// draw peace sign
+			peace();
 			// draw stage lights
 			lights(); 
 			// draw disco ball
@@ -247,7 +248,7 @@
 			let barSpacing = 1;
 			let barHeight = 100;
 			let topSpacing = 50;
-
+			drawCtx.globalAlpha = .9;
 			// loop through the data and draw!
 			for(let i=0; i<audioData.length; i+=15) { 
 				// draw lines
@@ -270,13 +271,32 @@
 				let controlX = ((startX*2) + 80)/2;
 				drawArc(drawCtx,startX,390,endX,390,controlX,350,"cyan");
 				drawCtx.save();
-				drawCtx.translate(startX,375);
-				//drawCtx.rotate()
-				drawTriangle(drawCtx,20,0,40,0,40,-45,randomColor());
-				//drawTriangle(drawCtx,startX+20,375,endX-10,375,controlX,335,randomColor());
+				drawCtx.translate(startX+5,375);
+				drawCtx.rotate(laserRotation);
+				drawTriangle(drawCtx,15,0,35,0,35,-45,randomColor());
+				drawCtx.globalAlpha = .3;
+				if(fired){
+					if(audioData[i]==0){ // change laser orientation based upon audiodata and type of data 
+						drawLine(drawCtx,35,-45,300,-200,randomColor());
+					}else if(wav){
+						drawCubeBezier(drawCtx,35,-45,50,-100,(audioData[i]*.5),-100,300,-200,randomColor());
+					}else{
+						drawCubeBezier(drawCtx,35,-45,-50+(audioData[i]*.9),-100,50+(audioData[i]*.9),-200,300,-200,randomColor());
+					}
+				}
 				drawCtx.restore();
 				startX+=100;
 			}
+			drawCtx.restore();
+		}
+
+		// draw peace sign
+		function peace(){
+			drawCtx.save();
+			drawCtx.scale(.5,.5);
+			drawCtx.translate(395,-60);
+
+			drawCtx.drawImage(disc,  0, 0);
 			drawCtx.restore();
 		}
 		
@@ -303,11 +323,6 @@
 			// data[i+3] is the alpha value
 
 			for(let i = 0; i < length; i+=4){
-				// iv) increase red value only
-				if(tintRed){
-					// just the red channel this time
-					data[i] = data[i] + 100;
-				}
 				// v) invert every color channel
 				if(invert){
 					let red = data[i], green = data[i+1], blue = data[i+2];

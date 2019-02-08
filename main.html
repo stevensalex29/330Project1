@@ -33,21 +33,18 @@
 			
 		</section>
 
+		<label class="container">
+			  <input type="checkbox" id="laser">Fire Lasers
+			  <span class="checkmark"></span>
+		</label>
 
 		<p id="filter"><b>Mode</b></p>
-		<select id="modeSelect">
-			<option value="frequency" selected>Frequency</option>
-			<option value="waveform">Waveform</option>
-		</select>
+		<input type="radio" name="modes" id="mode1" value="1" checked>Frequency
+		<input type="radio" name="modes" id="mode2" value="0">Waveform
 
 
 		<div id="Filters">
 			<p id="filter"><b>Image Filters</b></p>
-			<label class="container">
-			  <input type="checkbox" id="tint">Tint Red |
-			  <span class="checkmark"></span>
-			</label>
-
 			<label class="container">
 			  <input type="checkbox" id="invert">Invert |
 			  <span class="checkmark"></span>
@@ -77,7 +74,7 @@
   			<input type="range" min="-128" max="128" value="0" class="slider" id="myRange2">
 
   			<p>Laser Rotation: <span id="LI">0</span><span id="laser"></span></p>
-  			<input type="range" min="-10" max="10" value="0" class="slider" id="myRange3">
+  			<input type="range" min="0" max="5" value="0" class="slider" id="myRange3">
 		</div>
 
 		<hr>

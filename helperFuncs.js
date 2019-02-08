@@ -76,6 +76,20 @@
 		ctx.restore();
 	}
 
+	// draws an arc
+	function drawCubeBezier(ctx,startX=0,startY=0,cp1X=300,cp1Y=0,cp2X=150,cp2Y=75,endX,endY,strokeStyle="black",lineWidth=5){
+		ctx.save();
+		ctx.beginPath();
+		ctx.moveTo(startX, startY);
+		ctx.bezierCurveTo(cp1X,cp1Y,cp2X,cp2Y,endX,endY);
+		ctx.closePath();
+		ctx.strokeStyle = strokeStyle;    
+		ctx.lineWidth = lineWidth;
+		ctx.fill();
+		ctx.stroke();  
+		ctx.restore();
+	}
+
 	// makes given color
 	function makeColor(red, green, blue, alpha){
 		var color='rgba('+red+','+green+','+blue+', '+alpha+')';
