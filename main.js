@@ -11,6 +11,7 @@
 			sound3:  "media/The Picard Song.mp3"
 		});
 		let brightnessAmount = 0;
+		let laserRotation = 0;
 		let invert = false, tintRed = false, noise = false, sepia = false, wav = false;
 		let delayNode;
 		let img, disc;
@@ -141,6 +142,7 @@
 			// set initial value of sliders
 			document.querySelector("#bI").innerHTML = "0";
 			document.querySelector("#dI").innerHTML = "0";
+			document.querySelector("#LI").innerHTML = "0";
 			
 		}
 		
@@ -170,6 +172,8 @@
 			// slider code
 			let slider2 = document.querySelector("#myRange2");
 			let delaySlider = document.querySelector("#delaySlider");
+			let slider3 = document.querySelector("#myRange3");
+			let output1 = document.querySelector("#laser");
 			let output2 = document.querySelector("#bright");
 			let output3 = document.querySelector("#demo2");
 
@@ -177,6 +181,7 @@
 				document.querySelector("#bI").innerHTML = "";
 				brightnessAmount = parseInt(this.value);
 				if(brightnessAmount < 0) output2.innerHTML= this.value;
+				else if(brightnessAmount ==0) output2.innerHTML=this.value;
 				else output2.innerHTML= "+" + this.value;
 			}
 
@@ -184,6 +189,14 @@
 				document.querySelector("#dI").innerHTML = "";
 				output3.innerHTML=this.value;
 				delayNode.delayTime.value = parseFloat(this.value);
+			}
+
+			slider3.oninput = function(){
+				document.querySelector("#LI").innerHTML = "";
+				laserRotation = parseInt(this.value);
+				if(laserRotation < 0) output1.innerHTML = this.value;
+				else if(laserRotation ==0) output1.innerHTML=this.value;
+				else output1.innerHTML = "+" + this.value;
 			}
 
 			// update track time
@@ -208,6 +221,8 @@
 			lights(); 
 			// draw disco ball
 			disco();
+			// draw laser guns
+			laserGuns();
 			// To Do triangle lasers that rotate and shoot arc lasers by clicking button
 			// manipulate pixels for visualizer
 			manipulatePixels(drawCtx,canvasElement);	 
@@ -242,6 +257,25 @@
 					drawLine(drawCtx,canvasElement.width/2+5,100,640 - i * (barWidth + barSpacing),
 					canvasElement.height/2 + audioData[i] -20,randomColor(),5);
 				}
+			}
+			drawCtx.restore();
+		}
+
+		// draw laser guns
+		function laserGuns(){
+			drawCtx.save();
+			let startX = 20;
+			for(let i=0; i < 6; i++){
+				let endX = startX+50;
+				let controlX = ((startX*2) + 80)/2;
+				drawArc(drawCtx,startX,390,endX,390,controlX,350,"cyan");
+				drawCtx.save();
+				drawCtx.translate(startX,375);
+				//drawCtx.rotate()
+				drawTriangle(drawCtx,20,0,40,0,40,-45,randomColor());
+				//drawTriangle(drawCtx,startX+20,375,endX-10,375,controlX,335,randomColor());
+				drawCtx.restore();
+				startX+=100;
 			}
 			drawCtx.restore();
 		}
