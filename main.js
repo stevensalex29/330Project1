@@ -15,7 +15,7 @@
 		let fired = false;
 		let invert = false, noise = false, sepia = false, wav = false;
 		let delayNode;
-		let img, disc;
+		let img, disc, speaker, speaker2;
 		let ang = 0;
 		
 		// 2 - elements on the page
@@ -94,6 +94,8 @@
 			drawCtx = canvasElement.getContext("2d");
 			img = document.querySelector("#background");
 			disc = document.querySelector("#disco");
+			speaker = document.querySelector("#speaker");
+			speaker2 = document.querySelector("#speaker2");
 		}
 		
 		function setupUI(){
@@ -232,8 +234,8 @@
 		// draw disco ball for visualizer
 		function disco(){
 			drawCtx.save();
-			drawRectangle(drawCtx,canvasElement.width/2,40,10,30,"black");
-			drawCtx.translate(canvasElement.width/2+5, 100); 
+			drawRectangle(drawCtx,canvasElement.width/2-19,40,10,30,"black");
+			drawCtx.translate(canvasElement.width/2-15, 100); 
 			var grad = drawCtx.createRadialGradient(0, 0, 5, 0, 0, 30);
             grad.addColorStop(0, 'white');
             grad.addColorStop(1, 'black');
@@ -248,16 +250,22 @@
 			let barSpacing = 1;
 			let barHeight = 100;
 			let topSpacing = 50;
-			drawCtx.globalAlpha = .9;
+			drawCtx.globalAlpha = .6;
 			// loop through the data and draw!
 			for(let i=0; i<audioData.length; i+=15) { 
 				// draw lines
-				if(!wav) drawLine(drawCtx,canvasElement.width/2+5,100,640 - i * (barWidth + barSpacing)+getRandom(5,20),
-					canvasElement.height/2 + audioData[i],randomColor(),5); 
+				if(!wav || playButton.dataset.playing == "no") drawLine(drawCtx,canvasElement.width/2-15,100,640 - i * (barWidth + barSpacing)+10,
+					canvasElement.height/2 + audioData[i],"cyan",5); 
 				else {
-					drawLine(drawCtx,canvasElement.width/2+5,100,640 - i * (barWidth + barSpacing),
-					canvasElement.height/2 + audioData[i] -20,randomColor(),5);
+					drawLine(drawCtx,canvasElement.width/2-15,100,640 - i * (barWidth + barSpacing),
+					canvasElement.height/2 + audioData[i] -20,"cyan",5);
 				}
+				// if(!wav) drawLine(drawCtx,canvasElement.width/2-15,100,640 - i * (barWidth + barSpacing)+getRandom(5,20),
+				// 	canvasElement.height/2 + audioData[i],randomColor(),5); 
+				// else {
+				// 	drawLine(drawCtx,canvasElement.width/2-15,100,640 - i * (barWidth + barSpacing),
+				// 	canvasElement.height/2 + audioData[i] -20,randomColor(),5);
+				// }
 			}
 			drawCtx.restore();
 		}
@@ -290,13 +298,29 @@
 			drawCtx.restore();
 		}
 
-		// draw peace sign
+		// draw peace sign and speakers
 		function peace(){
 			drawCtx.save();
-			drawCtx.scale(.5,.5);
-			drawCtx.translate(395,-60);
+			drawCtx.drawImage(speaker, 10,60,150,100);
+			drawCtx.drawImage(speaker2, 430,60,150,100);
+			let xPos = 400;
+			let yPos = 400;
+			for(let i = 0; i < 7; i++){ // draw symbols from speakers
+				drawCtx.scale(.7,.7);
+				if(i!=0 && i!=1&&playButton.dataset.playing == "yes"){
+					let moveX1 = audioData[10];
+					drawCtx.drawImage(disc, xPos, yPos,moveX1,moveX1);
+					if(i==2)drawCtx.drawImage(disc, xPos+400, yPos,moveX1,moveX1);
+					if(i==3)drawCtx.drawImage(disc, xPos+950, yPos,moveX1,moveX1);
+					if(i==4)drawCtx.drawImage(disc, xPos+1800, yPos,moveX1,moveX1);
+					if(i==5)drawCtx.drawImage(disc, xPos+3100, yPos,moveX1,moveX1);
+					if(i==6)drawCtx.drawImage(disc, xPos+5000, yPos,moveX1,moveX1);
+				}
+				xPos+=100;
+				yPos+=150;
 
-			drawCtx.drawImage(disc,  0, 0);
+				
+			}
 			drawCtx.restore();
 		}
 		
