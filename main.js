@@ -15,7 +15,7 @@
 		let fired = false;
 		let invert = false, noise = false, sepia = false, wav = false;
 		let delayNode;
-		let img, disc, speaker, speaker2;
+		let img, disc, speaker, speaker2, gif;
 		let ang = 0;
 		
 		// 2 - elements on the page
@@ -96,6 +96,7 @@
 			disc = document.querySelector("#disco");
 			speaker = document.querySelector("#speaker");
 			speaker2 = document.querySelector("#speaker2");
+			gif = document.querySelector("#gif");
 		}
 		
 		function setupUI(){
@@ -218,6 +219,8 @@
 			drawCtx.clearRect(0,0,800,600); 
 			// draw base image
 			drawCtx.drawImage(img,  0, 0);
+			// draw dancer
+			drawCtx.drawImage(gif, 120, 200);
 			// draw peace sign
 			peace();
 			// draw stage lights

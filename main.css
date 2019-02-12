@@ -12,6 +12,24 @@
 		margin-top:10px;
 		box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
 		background: black;
+		position:absolute;
+		z-index:0;
+	}
+
+	#display{
+		display:block;
+		position:absolute;
+	}
+
+	#gif{
+		position:absolute;
+		/*display:inline-block;*/
+		width:200px;
+		height:200px;
+		margin-left:210px;
+		margin-top:150px;
+		z-index:1;
+
 	}
 
 	#controls{
