@@ -233,7 +233,7 @@
 			// draw dancer
 			//drawCtx.drawImage(gif, 120, 200);
 			// draw peace sign
-			app.drawer.peace(drawCtx,canvasElement,playButton);
+			app.drawer.peace(drawCtx,playButton,audioData,speaker,speaker2,disc);
 			// draw stage lights
 			app.drawer.lights(drawCtx,canvasElement,audioData,wav); 
 			// draw disco ball

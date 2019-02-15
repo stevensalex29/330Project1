@@ -63,7 +63,7 @@
 		}
 
 		// draw peace sign and speakers
-		function peace(drawCtx,playButton){
+		function peace(drawCtx,playButton,audioData,speaker,speaker2,disc){
 			drawCtx.save();
 			drawCtx.drawImage(speaker, 10,60,150,100);
 			drawCtx.drawImage(speaker2, 430,60,150,100);
