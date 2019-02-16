@@ -52,7 +52,7 @@
 				canvasElement.style.height = "100%";
 				canvasElement.style.width = "100%";
 				gif.style.marginLeft = "35%";
-				gif.style.marginTop = "20%";
+				gif.style.marginTop = "25%";
 				gif.style.height = "50%";
 				gif.style.width = "25%";
 			}
