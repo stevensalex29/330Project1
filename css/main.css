@@ -16,10 +16,6 @@
 		z-index:0;
 	}
 
-	#display{
-		position:absolute;
-	}
-
 	#gif{
 		position:absolute;
 		display:inline-block;
@@ -28,15 +24,7 @@
 		margin-left:210px;
 		margin-top:150px;
 		z-index:1;
-
 	}
-
-	#controls{
-		margin-left:10px;
-		margin-right:25%;
-		margin-top:5%;
-		position:absolute;
-    }
 
     #Filters{
       	margin-bottom:20px;
@@ -44,10 +32,6 @@
 
     #filter{
       	font-size: 25px;
-    }
-  
-    section{
-  	  margin-bottom:1em;
     }
   
     #playButton{
