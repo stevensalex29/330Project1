@@ -158,7 +158,6 @@
 			document.querySelector("#bI").innerHTML = "0";
 			document.querySelector("#dI").innerHTML = "0";
 			document.querySelector("#LI").innerHTML = "0";
-			
 		}
 		
 		function update() { 
