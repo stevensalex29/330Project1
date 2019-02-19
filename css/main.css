@@ -8,12 +8,12 @@
 	}
 
 	canvas {
-		margin-left:10px;
-		margin-top:10px;
-		box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+		margin: auto;
 		background: black;
 		position:absolute;
 		z-index:0;
+		width: 50vw; 
+		height: 28.12vw;
 	}
 
 	#gif{
