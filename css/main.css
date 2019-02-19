@@ -1,88 +1,117 @@
-	body {
-		background: #eeeeee;
-		font-family: tahoma, verdana, sans serif;
-	}
+@font-face {
+	font-family: disco_7;
+	src: url(../media/disco_7.ttf);
+}
 
-	img{
-		display:none;
-	}
+body {
+	background: #eeeeee;
+	font-family: tahoma, verdana, sans serif;
+}
 
-	canvas {
-		margin: auto;
-		background: black;
-		position:absolute;
-		z-index:0;
-		width: 100%; 
-		height: 56.6%;
-	}
+canvas {
+	margin: auto;
+	background: black;
+	position: absolute;
+	z-index: 0;
+	width: 100%;
+}
 
-	#gif{
-		position:absolute;
-		display:inline-block;
-		width:200px;
-		height:200px;
-		margin-left:210px;
-		margin-top:150px;
-		z-index:1;
-	}
+img {
+	display: none;
+}
 
-    #header{
-				font-size: 24px;
-				font-weight: bold;
-		}
-		
-		label{
-			font-size: 18px;
-			font-weight: bold;
-	}
-  
-    #playButton{
-  	  font-size: 1.2em;
-  	  width: 3.5em;
-    }
-  
-	button[data-playing="yes"]:after{
-		content: "Pause";
-	}
-	
-	button[data-playing="no"]:after{
-		content: "Play";
-	}
-	
-	#fsButton{
-  	font-size: 1.2em;
-  	width: 6em;
-  }
+label {
+	font-size: 18px;
+	font-weight: bold;
+	vertical-align: middle;
+	text-align: center;
+	margin: auto;
+}
 
-   .slidecontainer {
-	  width: 25%; /* Width of the outside container */
-	  margin-bottom:20px;
-	}
+.row {
+	margin: auto;
+	padding: 5px;
+}
 
-	/* The slider itself */
-	.slider {
-		-webkit-appearance: none;
-	    width: 100%;
-	    height: 10px;
-	    border-radius: 5px;
-	    background: #404040;
-	    outline: none;
-	    opacity: 0.7;
-	    transition: opacity .2s;
-	}
+.col-sm-auto .row {
+	height: 50px;
+	padding: auto;
+	border: 1px solid black;
+	margin: auto;
+}
 
-	/* Mouse-over effects */
-	.slider:hover {
-	  opacity: 1; /* Fully shown on mouse-over */
-	}
+.col-lg {
+	width: 100%;
+}
 
-	/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */ 
-	.slider::-webkit-slider-thumb {
-	  -webkit-appearance: none; /* Override default look */
-	  appearance: none;
-	  width: 15px; /* Set a specific slider handle width */
-	  height: 17px; /* Slider handle height */
-	  border-radius: 60%;
-	  background: white; /* Green background */
-	  cursor: pointer; /* Cursor on hover */
-	}
+button[data-playing="yes"]:after {
+	content: "Pause";
+}
+
+button[data-playing="no"]:after {
+	content: "Play";
+}
+
+#gif {
+	position: absolute;
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	margin-left: 25%;
+	margin-top: 25%;
+	z-index: 1;
+}
+
+#header {
+	font-size: 28px;
+	font-weight: bold;
+	margin: auto;
+	font-family: disco_7;
+}
+
+#buttonRow, .row .row .col, .row .row .col-6 {
+	padding: 0;
+}
+
+button {
+	width: 100%;
+	height: 100%;
+}
+
+/* The slider itself */
+
+.slider {
+	-webkit-appearance: none;
+	width: 100%;
+	height: 10px;
+	border-radius: 5px;
+	background: #404040;
+	outline: none;
+	opacity: 0.7;
+	transition: opacity .2s;
+	display: inline;
+}
+
+/* Mouse-over effects */
+
+.slider:hover {
+	opacity: 1;
+	/* Fully shown on mouse-over */
+}
+
+/* COMMENT OUT FOR LOOK??    The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	/* Override default look */
+	appearance: none;
+	width: 15px;
+	/* Set a specific slider handle width */
+	height: 17px;
+	/* Slider handle height */
+	border-radius: 60%;
+	background: white;
+	/* Green background */
+	cursor: pointer;
+	/* Cursor on hover */
+}
