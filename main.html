@@ -6,17 +6,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Project 1</title>
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	 crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<!-- Main CSS -->
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	 crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-	 crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	 crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
 	<!-- Project JS -->
 	<script src="src/main.js"></script>
 	<script src="src/helperFuncs.js"></script>
@@ -25,15 +28,15 @@
 </head>
 
 <body>
+	<audio></audio>
+
 	<div class="container">
 
 		<div class="row">
 			<div class="col-md-auto">
 
-				<audio></audio>
-
 				<div class="row">
-					AUDIO
+					<p id="header">AUDIO</p>
 				</div>
 
 				<div class="row">
@@ -48,84 +51,105 @@
 
 				<div class="row">
 					<label id="trackTime">Track Time: </label>
-					<button id="playButton" data-playing="no"></button>
-					<button id="fsButton">Full Screen</button>
 				</div>
 
-				Volume:
-				<input type="range" id="volumeSlider" min="0" max="2" value="1" step="0.01">
-				<span id="volumeLabel">???</span>
+				<div class="row">
+					<div class="col">
+						<button id="playButton" data-playing="no"></button>
+					</div>
+					<div class="col">
+						<button id="fsButton">Full Screen</button>
+					</div>
+				</div>
 
-				<label class="container">
-					<input type="checkbox" id="laser">Fire Lasers
-					<span class="checkmark"></span>
-				</label>
-
-				<p id="filter">
-					<b>Mode</b>
-				</p>
-				<input type="radio" name="modes" id="mode1" value="1" checked>Frequency
-				<input type="radio" name="modes" id="mode2" value="0">Waveform
-
-				<p id="filter">
-					<b>Image Filters</b>
-				</p>
-				<label class="container">
-					<input type="checkbox" id="invert">Invert
-					<span class="checkmark"></span>
-				</label>
-
-				<label class="container">
-					<input type="checkbox" id="noise">Noise
-					<span class="checkmark"></span>
-				</label>
-
-				<label class="container">
-					<input type="checkbox" id="sepia">Sepia
-					<span class="checkmark"></span>
-				</label>
-
-				<div class="slidecontainer">
-					<p id="filter">
-						<b>Audio Filters</b>
+				<div class="row">
+					<p>
+						Volume:
+						<span id="volumeLabel">???</span>
 					</p>
+					<input type="range" id="volumeSlider" min="0" max="2" value="1" step="0.01"
+						class="slider slidecontainer">
+				</div>
 
-					<p>Delay/Reverb:
+				<div class="row">
+					<p>
+						Delay/Reverb:
 						<span id="dI">0</span>
 						<span id="demo2"></span>
 					</p>
 
-					<input id="delaySlider" type="range" min="0.0" max="1.0" value="0" step="0.1" class="slider">
+					<input id="delaySlider" type="range" min="0.0" max="1.0" value="0" step="0.1"
+						class="slider slidecontainer">
+				</div>
 
-					<p id="filter">
-						<b>Canvas Effects</b>
-					</p>
+				<div class="row">
+					<p id="header">LASERS</p>
+				</div>
 
-					<p>Brightness:
-						<span id="bI">0</span>
-						<span id="bright"></span>
-					</p>
+				<div class="row">
+					<label>
+						<input type="checkbox" id="laser">Fire Lasers
+						<span class="checkmark"></span>
+					</label>
+				</div>
 
-					<input type="range" min="-128" max="128" value="0" class="slider" id="myRange2">
-
-					<p>Laser Rotation:
+				<div class="row">
+					<p>
+						Laser Rotation:
 						<span id="LI">0</span>
 						<span id="laser"></span>
 					</p>
-
-					<input type="range" min="0" max="5" value="0" class="slider" id="myRange3">
-
-					<div class="row">
-						LAZERS
-					</div>
-
-					<div class="row">
-						CANVUS EFFECTS
-					</div>
-
+					<input type="range" min="0" max="5" value="0" class="slider slidecontainer" id="myRange3">
 				</div>
-			<div class="col-md-auto" id="display">
 
+				<div class="row">
+					<p id="header">CANVAS EFFECTS</p>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<input type="radio" name="modes" id="mode1" value="1" checked>Frequency
+					</div>
+
+					<div class="col">
+						<input type="radio" name="modes" id="mode2" value="0">Waveform
+					</div>
+				</div>
+
+				<div class="row">
+					<p>
+						Brightness:
+						<span id="bI">0</span>
+						<span id="bright"></span>
+					</p>
+					<input type="range" min="-128" max="128" value="0" class="slider slidecontainer" id="myRange2">
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<label>
+							<input type="checkbox" id="invert">Invert
+							<span class="checkmark"></span>
+						</label>
+					</div>
+
+					<div class="col">
+						<label>
+							<input type="checkbox" id="noise">Noise
+							<span class="checkmark"></span>
+						</label>
+					</div>
+
+					<div class="col">
+						<label>
+							<input type="checkbox" id="sepia">Sepia
+							<span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md" id="display">
 				<canvas></canvas>
 				<img src="media/stage.jpg" id="background" width="1116" height="1116">
 				<img src="media/peace1.png" id="disco" width="50" height="50">
@@ -133,10 +157,7 @@
 				<img src="media/speaker2.png" id="speaker2" width="50" height="50">
 				<img src="media/dancer.gif" id="gif" width="50" height="50">
 			</div>
-
 		</div>
-	</div>
-
 </body>
 
 </html>
