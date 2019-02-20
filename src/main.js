@@ -18,7 +18,7 @@ app.main = (function () {
 	let fired = false;
 	let invert = false, noise = false, sepia = false, wav = false, full = false;
 	let delayNode;
-	let img, disc, speaker, speaker2, gif;
+	let bgImg, discoImg, speakerImg, speaker2Img, currentGif, gif1, gif2, gif3;
 	let ang = 0;
 	let display;
 	let gifML, gifMT, gifH, gifW, cH, cW;
@@ -111,13 +111,20 @@ app.main = (function () {
 		canvasElement = document.querySelector('canvas');
 		display = document.querySelector("#display");
 		drawCtx = canvasElement.getContext("2d");
-		img = document.querySelector("#backgroundImg");
-		disc = document.querySelector("#discoImg");
-		speaker = document.querySelector("#speakerImg");
-		speaker2 = document.querySelector("#speaker2Img");
-		gif = document.querySelector("#gif1");
-		document.querySelector("#gif2").style.display = "none";
-		document.querySelector("#gif3").style.display = "none";
+		
+		bgImg = document.querySelector("#backgroundImg");
+		discoImg = document.querySelector("#discoImg");
+		speakerImg = document.querySelector("#speakerImg");
+		speaker2Img = document.querySelector("#speaker2Img");
+		
+		gif1 = document.querySelector("#gif1");
+		gif2 = document.querySelector("#gif2");
+		gif3 = document.querySelector("#gif3");
+
+		gif1.style.display = "inline-block";
+		currentGif = gif1;
+		gif2.style.display = "none";
+		gif3.style.display = "none";
 	}
 
 	function setupUI() {
@@ -145,6 +152,7 @@ app.main = (function () {
 			gainNode.gain.value = e.target.value;
 			volumeLabel.innerHTML = Math.round((e.target.value / 2 * 100));
 		};
+
 		volumeSlider.dispatchEvent(new InputEvent("input"));
 
 
@@ -154,20 +162,20 @@ app.main = (function () {
 			playButton.dispatchEvent(new MouseEvent("click"));
 			// change gif based off song
 			if (e.target.value == "media/ThatsTheWay.mp3") {
-				document.querySelector("#gif2").style.display = "inline-block"; // swap to gif 2
-				gif = document.querySelector("#gif2");
-				document.querySelector("#gif1").style.display = "none";
-				document.querySelector("#gif3").style.display = "none";
+				gif2.style.display = "inline-block"; // swap to gif 2
+				currentGif = gif2;
+				gif1.style.display = "none";
+				gif3.style.display = "none";
 			} else if (e.target.value == "media/StayinAlive.mp3") { // swap to gif 3
-				document.querySelector("#gif3").style.display = "inline-block";
-				gif = document.querySelector("#gif3");
-				document.querySelector("#gif1").style.display = "none";
-				document.querySelector("#gif2").style.display = "none";
+				gif3.style.display = "inline-block";
+				currentGif = gif3;
+				gif1.style.display = "none";
+				gif2.style.display = "none";
 			} else { // swap to gif 1
-				document.querySelector("#gif1").style.display = "inline-block";
-				gif = document.querySelector("#gif1");
-				document.querySelector("#gif2").style.display = "none";
-				document.querySelector("#gif3").style.display = "none";
+				gif1.style.display = "inline-block";
+				currentGif = gif1;
+				gif2.style.display = "none";
+				gif3.style.display = "none";
 			}
 		};
 
@@ -256,11 +264,11 @@ app.main = (function () {
 		// clear canvas
 		drawCtx.clearRect(0, 0, 800, 600);
 		// draw base image
-		drawCtx.drawImage(img, 0, 0, canvasElement.width, canvasElement.height);
+		drawCtx.drawImage(bgImg, 0, 0, canvasElement.width, canvasElement.height);
 		// draw dancer
-		//drawCtx.drawImage(gif, 120, 200);
+		//drawCtx.drawImage(currentGif, 120, 200);
 		// draw peace sign
-		app.drawer.peace(drawCtx, playButton, audioData, speaker, speaker2, disc, canvasElement);
+		app.drawer.peace(drawCtx, playButton, audioData, speakerImg, speaker2Img, discoImg, canvasElement);
 		// draw stage lights
 		app.drawer.lights(drawCtx, canvasElement, audioData, wav);
 		// draw disco ball

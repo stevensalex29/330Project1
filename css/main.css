@@ -20,6 +20,11 @@ canvas {
 	height: 100%;
 }
 
+img{
+	width: 50px;
+	height: 50px;
+}
+
 label, #trackSelect {
 	font-size: 18px;
 	font-weight: bold;
@@ -90,7 +95,7 @@ button[data-playing="no"]:after {
 
 .dancerGif {
 	position: absolute;
-	display: inline-block;
+	display: none;
 	width: 300px;
 	height: 300px;
 	margin-left: 25%;
