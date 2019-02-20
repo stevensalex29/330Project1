@@ -4,8 +4,8 @@
 		// draw disco ball for visualizer
 		function disco(drawCtx,canvasElement){
 			drawCtx.save();
-			app.helper.drawRectangle(drawCtx,canvasElement.width/2-19,40,10,30,"black");
-			drawCtx.translate(canvasElement.width/2-15, 100); 
+			app.helper.drawRectangle(drawCtx,canvasElement.width/2,40,10,30,"black");
+			drawCtx.translate(canvasElement.width/2+5, 100); 
 			var grad = drawCtx.createRadialGradient(0, 0, 5, 0, 0, 30);
 	        grad.addColorStop(0, 'white');
 	        grad.addColorStop(1, 'black');
@@ -24,10 +24,10 @@
 			// loop through the data and draw!
 			for(let i=0; i<audioData.length; i+=15) { 
 				// draw lines
-				if(!wav) app.helper.drawLine(drawCtx,canvasElement.width/2-15,100,640 - i * (barWidth + barSpacing)+10,
+				if(!wav) app.helper.drawLine(drawCtx,canvasElement.width/2+5,100,640 - i * (barWidth + barSpacing)+10,
 					canvasElement.height/2 + audioData[i],"cyan",5); 
 				else {
-					app.helper.drawLine(drawCtx,canvasElement.width/2-15,100,640 - i * (barWidth + barSpacing),
+					app.helper.drawLine(drawCtx,canvasElement.width/2+5,100,640 - i * (barWidth + barSpacing),
 					canvasElement.height/2 + audioData[i] -20,"cyan",5);
 				}
 			}
@@ -35,15 +35,17 @@
 		}
 
 		// draw laser guns
-		function laserGuns(drawCtx,audioData,laserRotation,fired,wav){
+		function laserGuns(drawCtx,audioData,laserRotation,fired,wav,canvasElement){
 			drawCtx.save();
 			let startX = 20;
+			let spacing = canvasElement.width/6;
+			//iterate and draw each laser
 			for(let i=0; i < 6; i++){
 				let endX = startX+50;
 				let controlX = ((startX*2) + 80)/2;
-				app.helper.drawArc(drawCtx,startX,390,endX,390,controlX,350,"cyan");
+				app.helper.drawArc(drawCtx,startX,canvasElement.height-20,endX,canvasElement.height-20,controlX,canvasElement.height-70,"cyan");
 				drawCtx.save();
-				drawCtx.translate(startX+5,375);
+				drawCtx.translate(startX+5,canvasElement.height-35);
 				drawCtx.rotate(laserRotation);
 				app.helper.drawTriangle(drawCtx,15,0,35,0,35,-45,app.helper.randomColor());
 				drawCtx.globalAlpha = .3;
@@ -57,16 +59,16 @@
 					}
 				}
 				drawCtx.restore();
-				startX+=100;
+				startX+=spacing;
 			}
 			drawCtx.restore();
 		}
 
 		// draw peace sign and speakers
-		function peace(drawCtx,playButton,audioData,speaker,speaker2,disc){
+		function peace(drawCtx,playButton,audioData,speaker,speaker2,disc,canvasElement){
 			drawCtx.save();
 			drawCtx.drawImage(speaker, 10,60,150,100);
-			drawCtx.drawImage(speaker2, 430,60,150,100);
+			drawCtx.drawImage(speaker2, canvasElement.width-165,60,150,100);
 			let xPos = 400;
 			let yPos = 400;
 			for(let i = 0; i < 7; i++){ // draw symbols from speakers
@@ -74,11 +76,11 @@
 				if(i!=0 && i!=1&&playButton.dataset.playing == "yes"){
 					let moveX1 = audioData[10];
 					drawCtx.drawImage(disc, xPos, yPos,moveX1,moveX1);
-					if(i==2)drawCtx.drawImage(disc, xPos+400, yPos,moveX1,moveX1);
-					if(i==3)drawCtx.drawImage(disc, xPos+950, yPos,moveX1,moveX1);
-					if(i==4)drawCtx.drawImage(disc, xPos+1800, yPos,moveX1,moveX1);
-					if(i==5)drawCtx.drawImage(disc, xPos+3100, yPos,moveX1,moveX1);
-					if(i==6)drawCtx.drawImage(disc, xPos+5000, yPos,moveX1,moveX1);
+					if(i==2)drawCtx.drawImage(disc, canvasElement.width+900, yPos,moveX1,moveX1);
+					if(i==3)drawCtx.drawImage(disc, canvasElement.width+1800, yPos,moveX1,moveX1);
+					if(i==4)drawCtx.drawImage(disc, canvasElement.width+3100, yPos,moveX1,moveX1);
+					if(i==5)drawCtx.drawImage(disc, canvasElement.width+5000, yPos,moveX1,moveX1);
+					if(i==6)drawCtx.drawImage(disc, canvasElement.width+7700, yPos,moveX1,moveX1);
 				}
 				xPos+=100;
 				yPos+=150;

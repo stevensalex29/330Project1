@@ -1,3 +1,4 @@
+/* attribute css */
 @font-face {
 	font-family: disco_7;
 	src: url(../media/disco_7.ttf);
@@ -5,7 +6,7 @@
 
 body {
 	background: #eeeeee;
-	font-family: tahoma, verdana, sans serif;
+	font-family: "tahoma, verdana, sans serif";
 }
 
 canvas {
@@ -13,11 +14,8 @@ canvas {
 	background: black;
 	position: absolute;
 	z-index: 0;
-	width: 100%;
-}
-
-img {
-	display: none;
+	width:100%;
+	height:100%;
 }
 
 label {
@@ -28,6 +26,7 @@ label {
 	margin: auto;
 }
 
+/* grid css */
 .row {
 	margin: auto;
 	padding: 5px;
@@ -35,7 +34,7 @@ label {
 
 .col-sm-auto .row {
 	height: 50px;
-	padding: auto;
+	padding: 5px;
 	border: 1px solid black;
 	margin: auto;
 }
@@ -44,6 +43,7 @@ label {
 	width: 100%;
 }
 
+/* button css */
 button[data-playing="yes"]:after {
 	content: "Pause";
 }
@@ -52,22 +52,6 @@ button[data-playing="no"]:after {
 	content: "Play";
 }
 
-#gif {
-	position: absolute;
-	display: inline-block;
-	width: 200px;
-	height: 200px;
-	margin-left: 25%;
-	margin-top: 25%;
-	z-index: 1;
-}
-
-#header {
-	font-size: 28px;
-	font-weight: bold;
-	margin: auto;
-	font-family: disco_7;
-}
 
 #buttonRow, .row .row .col, .row .row .col-6 {
 	padding: 0;
@@ -78,7 +62,26 @@ button {
 	height: 100%;
 }
 
-/* The slider itself */
+/* gif and header */
+.dancerGif {
+	position: absolute;
+	display: inline-block;
+	width: 300px;
+	height: 300px;
+	margin-left: 25%;
+	margin-top: 20%;
+	z-index: 1;
+}
+
+.header {
+	font-size: 28px;
+	font-weight: bold;
+	margin: auto;
+	font-family: disco_7;
+}
+
+
+/* the slider itself */
 
 .slider {
 	-webkit-appearance: none;
@@ -92,14 +95,13 @@ button {
 	display: inline;
 }
 
-/* Mouse-over effects */
+/* mouse-over effects */
 
 .slider:hover {
 	opacity: 1;
-	/* Fully shown on mouse-over */
 }
 
-/* COMMENT OUT FOR LOOK??    The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+/* slide handle */
 
 .slider::-webkit-slider-thumb {
 	-webkit-appearance: none;
@@ -114,4 +116,68 @@ button {
 	/* Green background */
 	cursor: pointer;
 	/* Cursor on hover */
+}
+
+/* responsive design */
+@media only screen and (max-width: 1300px) {
+	  .dancerGif {
+		width: 270px;
+		height: 270px;
+		margin-left: 15%;
+		margin-top: 30%;
+	}
+}
+
+@media only screen and (max-width: 1060px) {
+	  .dancerGif {
+		width: 250px;
+		height: 250px;
+		margin-left: -10%;
+		margin-top: 40%;
+	}
+}
+
+@media only screen and (max-width: 990px) {
+	  .dancerGif {
+		width: 250px;
+		height: 250px;
+		margin-left: 10%;
+		margin-top: 20%;
+	}
+
+	.col-sm-auto{
+		width:100%;
+	}
+
+	canvas {
+		width:100%;
+		height:500px;
+	}
+}
+
+@media only screen and (max-width: 720px) {
+	  .dancerGif {
+		width: 200px;
+		height: 200px;
+		margin-left: -5%;
+		margin-top: 30%;
+	}
+}
+
+@media only screen and (max-width: 520px) {
+	  .dancerGif {
+		width: 200px;
+		height: 200px;
+		margin-left: -15%;
+		margin-top: 50%;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	  .dancerGif {
+		width: 150px;
+		height: 150px;
+		margin-left: -30%;
+		margin-top: 80%;
+	}
 }

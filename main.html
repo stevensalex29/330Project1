@@ -30,13 +30,15 @@
 <body>
 	<audio></audio>
 
+	<!-- starting row for all content -->
 	<div class="row">
+		<!-- first column has all controls -->
 		<div class="col-sm-auto">
 
 			<div class="row">
-				<p id="header">AUDIO</p>
+				<p class="header">AUDIO</p>
 			</div>
-
+			<!-- track select row -->
 			<div class="row">
 				<label>Track:
 					<select id="trackSelect">
@@ -46,11 +48,11 @@
 					</select>
 				</label>
 			</div>
-
+			<!-- track time row -->
 			<div class="row">
 				<label id="trackTime">Track Time: </label>
 			</div>
-
+			<!-- button row-->
 			<div id="buttonRow" class="row">
 				<div class="col">
 					<button id="playButton" data-playing="no"></button>
@@ -59,14 +61,14 @@
 					<button id="fsButton">Full Screen</button>
 				</div>
 			</div>
-
+			<!-- volume row -->
 			<div class="row">
 				<label>Volume:
 					<span id="volumeLabel">???</span>
 				</label>
 				<input type="range" id="volumeSlider" min="0" max="2" value="1" step="0.01" class="slider">
 			</div>
-
+			<!-- reverb row -->
 			<div class="row">
 				<label>Delay/Reverb:
 					<span id="delayLabel">0</span>
@@ -75,9 +77,9 @@
 			</div>
 
 			<div class="row">
-				<p id="header">LASERS</p>
+				<p class="header">LASERS</p>
 			</div>
-
+			<!-- laser rows -->
 			<div class="row">
 				<label>
 					<input type="checkbox" id="laserBox">
@@ -93,9 +95,9 @@
 			</div>
 
 			<div class="row">
-				<p id="header">CANVAS EFFECTS</p>
+				<p class="header">CANVAS EFFECTS</p>
 			</div>
-
+			<!-- effects for canvas rows -->
 			<div class="row">
 				<div class="col">
 					<label>
@@ -111,7 +113,7 @@
 					</label>
 				</div>
 			</div>
-
+			<!-- change image data and audio mode -->
 			<div class="row">
 				<label>Brightness:
 					<span id="brightnessLabel">0</span>
@@ -131,7 +133,7 @@
 						<input type="checkbox" id="noiseBox">Noise
 					</label>
 				</div>
-
+				<!-- checkbox for image data changes -->
 				<div class="col">
 					<label>
 						<input type="checkbox" id="sepiaBox">Sepia
@@ -139,16 +141,17 @@
 				</div>
 			</div>
 		</div>
-
+		<!-- second column holds display of visualizer -->
 		<div class="col-lg" id="display">
-			<canvas></canvas>
-			<img src="media/stage.jpg" id="backgroundImg" width="1100" height="1116">
-			<img src="media/peace1.png" id="discoImg" width="50" height="50">
-			<img src="media/speaker.png" id="speakerImg" width="50" height="50">
-			<img src="media/speaker2.png" id="speaker2Img" width="50" height="50">
-			<img src="media/dancer.gif" id="dancerGif" width="50" height="50">
+			<canvas width="800" height="600"></canvas>
+			<img alt="stage" src="media/stage.jpg" id="backgroundImg" width="50" height="50">
+			<img alt="peace" src="media/peace1.png" id="discoImg" width="50" height="50">
+			<img alt="speaker1" src="media/speaker.png" id="speakerImg" width="50" height="50">
+			<img alt="speaker2" src="media/speaker2.png" id="speaker2Img" width="50" height="50">
+			<img alt="gif1" src="media/dancer.gif" class="dancerGif" id="gif1" width="50" height="50">
+			<img alt="gif2" src="media/dancer2.gif" class="dancerGif" id="gif2" width="50" height="50">
+			<img alt="gif3" src="media/dancer3.gif" class="dancerGif" id="gif3" width="50" height="50">
 		</div>
-
+	</div>
 </body>
-
 </html>

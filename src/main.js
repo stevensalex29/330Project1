@@ -21,6 +21,7 @@ app.main = (function () {
 	let img, disc, speaker, speaker2, gif;
 	let ang = 0;
 	let display;
+	let gifML, gifMT, gifH,gifW, cH,cW;
 
 	// elements on the page
 	let audioElement, canvasElement;
@@ -39,18 +40,27 @@ app.main = (function () {
 
 	// update elements when entering and exiting fullscreen
 	document.addEventListener("fullscreenchange", function () {
+		// otherwise, decrease size of gif and canvas to the size they were before using saved values
 		if (full) {
 			full = false;
-			gif.style.marginLeft = "210px";
-			gif.style.marginTop = "150px";
-			gif.style.height = "200px";
-			gif.style.width = "200px";
-		} else {
+			gif.style.marginLeft = gifML;
+			gif.style.marginTop = gifMT;
+			gif.style.width = gifW;
+			gif.style.height = gifH;
+			canvasElement.style.height = cH;
+			canvasElement.style.width = cW;
+		} else { // if full screen, enlarge gif and canvas to full size, keep track of old sizes
 			full = true;
+			gifML = gif.style.marginLeft;
+			gifMT = gif.style.marginTop;
+			gifH = gif.style.height;
+			gifW = gif.style.width;
+			cH = canvasElement.style.height;
+			cW = canvasElement.style.width;
 			canvasElement.style.height = "100%";
 			canvasElement.style.width = "100%";
-			gif.style.marginLeft = "35%";
-			gif.style.marginTop = "25%";
+			gif.style.marginLeft = "25%";
+			gif.style.marginTop = "20%";
 			gif.style.height = "50%";
 			gif.style.width = "25%";
 		}
@@ -105,7 +115,9 @@ app.main = (function () {
 		disc = document.querySelector("#discoImg");
 		speaker = document.querySelector("#speakerImg");
 		speaker2 = document.querySelector("#speaker2Img");
-		gif = document.querySelector("#dancerGif");
+		gif = document.querySelector("#gif1");
+		document.querySelector("#gif2").style.display="none";
+		document.querySelector("#gif3").style.display="none";
 	}
 
 	function setupUI() {
@@ -140,6 +152,23 @@ app.main = (function () {
 			audioElement.src = e.target.value;
 			// pause the current track if it is playing
 			playButton.dispatchEvent(new MouseEvent("click"));
+			// change gif based off song
+			if(e.target.value == "media/ThatsTheWay.mp3"){
+				document.querySelector("#gif2").style.display="inline-block"; // swap to gif 2
+				gif = document.querySelector("#gif2");
+				document.querySelector("#gif1").style.display="none";
+				document.querySelector("#gif3").style.display="none";
+			}else if(e.target.value == "media/StayinAlive.mp3"){ // swap to gif 3
+				document.querySelector("#gif3").style.display="inline-block";
+				gif = document.querySelector("#gif3");
+				document.querySelector("#gif1").style.display="none";
+				document.querySelector("#gif2").style.display="none";
+			}else{ // swap to gif 1
+				document.querySelector("#gif1").style.display="inline-block";
+				gif = document.querySelector("#gif1");
+				document.querySelector("#gif2").style.display="none";
+				document.querySelector("#gif3").style.display="none";
+			}
 		};
 
 
@@ -189,6 +218,7 @@ app.main = (function () {
 		let output2 = document.querySelector("#brightnessLabel");
 		let output3 = document.querySelector("#delayLabel");
 
+		// change brightness
 		slider2.oninput = function () {
 			brightnessAmount = parseInt(this.value);
 			if (brightnessAmount < 0) output2.innerHTML = this.value;
@@ -196,11 +226,13 @@ app.main = (function () {
 			else output2.innerHTML = "+" + this.value;
 		}
 
+		// change delay
 		delaySlider.oninput = function () {
 			output3.innerHTML = this.value;
 			delayNode.delayTime.value = parseFloat(this.value);
 		}
 
+		// change laser rotation
 		slider3.oninput = function () {
 			let s = -.2;
 			laserRotation = s + (.1 * this.value);
@@ -224,17 +256,17 @@ app.main = (function () {
 		// clear canvas
 		drawCtx.clearRect(0, 0, 800, 600);
 		// draw base image
-		drawCtx.drawImage(img, 0, 0);
+		drawCtx.drawImage(img, 0, 0,canvasElement.width,canvasElement.height);
 		// draw dancer
 		//drawCtx.drawImage(gif, 120, 200);
 		// draw peace sign
-		app.drawer.peace(drawCtx, playButton, audioData, speaker, speaker2, disc);
+		app.drawer.peace(drawCtx, playButton, audioData, speaker, speaker2, disc,canvasElement);
 		// draw stage lights
 		app.drawer.lights(drawCtx, canvasElement, audioData, wav);
 		// draw disco ball
 		app.drawer.disco(drawCtx, canvasElement);
 		// draw laser guns
-		app.drawer.laserGuns(drawCtx, audioData, laserRotation, fired, wav);
+		app.drawer.laserGuns(drawCtx, audioData, laserRotation, fired, wav,canvasElement);
 		// To Do triangle lasers that rotate and shoot arc lasers by clicking button
 		// manipulate pixels for visualizer
 		app.drawer.manipulatePixels(drawCtx, canvasElement, invert, noise, sepia, brightnessAmount);
