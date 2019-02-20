@@ -141,7 +141,7 @@ button[data-playing="no"]:after {
 	height: 17px;
 	/* Slider handle height */
 	border-radius: 60%;
-	background: white;
+	background:  rgb(0, 0, 0);
 	/* Green background */
 	cursor: pointer;
 	/* Cursor on hover */
