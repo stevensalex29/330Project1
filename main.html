@@ -5,21 +5,14 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Project 1</title>
+
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 	<!-- Main CSS -->
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
+
 	<!-- Project JS -->
 	<script src="src/main.js"></script>
 	<script src="src/helperFuncs.js"></script>
@@ -28,16 +21,19 @@
 </head>
 
 <body>
+
 	<audio></audio>
 
 	<!-- starting row for all content -->
 	<div class="row">
+
 		<!-- first column has all controls -->
 		<div class="col-sm-auto">
 
-			<div class="row">
+			<div class="row headerRow">
 				<p class="header">AUDIO</p>
 			</div>
+
 			<!-- track select row -->
 			<div class="row">
 				<label>Track:
@@ -48,19 +44,25 @@
 					</select>
 				</label>
 			</div>
+
 			<!-- track time row -->
 			<div class="row">
-				<label id="trackTime">Track Time: </label>
+				<label>
+					Track Time:
+					<span id="trackTimeLabel">???</span>
+				</label>
 			</div>
+
 			<!-- button row-->
 			<div id="buttonRow" class="row">
 				<div class="col">
 					<button id="playButton" data-playing="no"></button>
 				</div>
-				<div class="col-6">
+				<div class="col">
 					<button id="fsButton">Full Screen</button>
 				</div>
 			</div>
+
 			<!-- volume row -->
 			<div class="row">
 				<label>Volume:
@@ -68,6 +70,7 @@
 				</label>
 				<input type="range" id="volumeSlider" min="0" max="2" value="1" step="0.01" class="slider">
 			</div>
+
 			<!-- reverb row -->
 			<div class="row">
 				<label>Delay/Reverb:
@@ -76,9 +79,10 @@
 				<input id="delaySlider" type="range" min="0.0" max="1.0" value="0" step="0.1" class="slider">
 			</div>
 
-			<div class="row">
+			<div class="row headerRow">
 				<p class="header">LASERS</p>
 			</div>
+
 			<!-- laser rows -->
 			<div class="row">
 				<label>
@@ -94,11 +98,12 @@
 				<input type="range" min="0" max="5" value="0" class="slider" id="myRange3">
 			</div>
 
-			<div class="row">
+			<div class="headerRow row">
 				<p class="header">CANVAS EFFECTS</p>
 			</div>
+
 			<!-- effects for canvas rows -->
-			<div class="row">
+			<div class="row checkboxRow">
 				<div class="col">
 					<label>
 						<input type="radio" name="modes" id="frequencyMode" value="1" checked>
@@ -113,6 +118,7 @@
 					</label>
 				</div>
 			</div>
+
 			<!-- change image data and audio mode -->
 			<div class="row">
 				<label>Brightness:
@@ -121,26 +127,31 @@
 				<input type="range" min="-128" max="128" value="0" class="slider" id="myRange2">
 			</div>
 
-			<div class="row">
+			<div class="row checkboxRow">
 				<div class="col">
 					<label>
-						<input type="checkbox" id="invertBox">Invert
+						<input type="checkbox" id="invertBox">
+						Invert
 					</label>
 				</div>
 
 				<div class="col">
 					<label>
-						<input type="checkbox" id="noiseBox">Noise
+						<input type="checkbox" id="noiseBox">
+						Noise
 					</label>
 				</div>
+
 				<!-- checkbox for image data changes -->
 				<div class="col">
 					<label>
-						<input type="checkbox" id="sepiaBox">Sepia
+						<input type="checkbox" id="sepiaBox">
+						Sepia
 					</label>
 				</div>
 			</div>
 		</div>
+
 		<!-- second column holds display of visualizer -->
 		<div class="col-lg" id="display">
 			<canvas width="800" height="600"></canvas>
@@ -154,4 +165,5 @@
 		</div>
 	</div>
 </body>
+
 </html>

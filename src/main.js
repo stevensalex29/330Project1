@@ -21,7 +21,7 @@ app.main = (function () {
 	let img, disc, speaker, speaker2, gif;
 	let ang = 0;
 	let display;
-	let gifML, gifMT, gifH,gifW, cH,cW;
+	let gifML, gifMT, gifH, gifW, cH, cW;
 
 	// elements on the page
 	let audioElement, canvasElement;
@@ -116,8 +116,8 @@ app.main = (function () {
 		speaker = document.querySelector("#speakerImg");
 		speaker2 = document.querySelector("#speaker2Img");
 		gif = document.querySelector("#gif1");
-		document.querySelector("#gif2").style.display="none";
-		document.querySelector("#gif3").style.display="none";
+		document.querySelector("#gif2").style.display = "none";
+		document.querySelector("#gif3").style.display = "none";
 	}
 
 	function setupUI() {
@@ -153,21 +153,21 @@ app.main = (function () {
 			// pause the current track if it is playing
 			playButton.dispatchEvent(new MouseEvent("click"));
 			// change gif based off song
-			if(e.target.value == "media/ThatsTheWay.mp3"){
-				document.querySelector("#gif2").style.display="inline-block"; // swap to gif 2
+			if (e.target.value == "media/ThatsTheWay.mp3") {
+				document.querySelector("#gif2").style.display = "inline-block"; // swap to gif 2
 				gif = document.querySelector("#gif2");
-				document.querySelector("#gif1").style.display="none";
-				document.querySelector("#gif3").style.display="none";
-			}else if(e.target.value == "media/StayinAlive.mp3"){ // swap to gif 3
-				document.querySelector("#gif3").style.display="inline-block";
+				document.querySelector("#gif1").style.display = "none";
+				document.querySelector("#gif3").style.display = "none";
+			} else if (e.target.value == "media/StayinAlive.mp3") { // swap to gif 3
+				document.querySelector("#gif3").style.display = "inline-block";
 				gif = document.querySelector("#gif3");
-				document.querySelector("#gif1").style.display="none";
-				document.querySelector("#gif2").style.display="none";
-			}else{ // swap to gif 1
-				document.querySelector("#gif1").style.display="inline-block";
+				document.querySelector("#gif1").style.display = "none";
+				document.querySelector("#gif2").style.display = "none";
+			} else { // swap to gif 1
+				document.querySelector("#gif1").style.display = "inline-block";
 				gif = document.querySelector("#gif1");
-				document.querySelector("#gif2").style.display="none";
-				document.querySelector("#gif3").style.display="none";
+				document.querySelector("#gif2").style.display = "none";
+				document.querySelector("#gif3").style.display = "none";
 			}
 		};
 
@@ -240,7 +240,7 @@ app.main = (function () {
 		}
 
 		// update track time
-		document.querySelector("#trackTime").innerHTML = "Track Time: " + app.helper.secondsDisplay(audioElement.currentTime) +
+		document.querySelector("#trackTimeLabel").innerHTML = app.helper.secondsDisplay(audioElement.currentTime) +
 			" / " + app.helper.secondsDisplay(audioElement.duration);
 
 
@@ -256,17 +256,17 @@ app.main = (function () {
 		// clear canvas
 		drawCtx.clearRect(0, 0, 800, 600);
 		// draw base image
-		drawCtx.drawImage(img, 0, 0,canvasElement.width,canvasElement.height);
+		drawCtx.drawImage(img, 0, 0, canvasElement.width, canvasElement.height);
 		// draw dancer
 		//drawCtx.drawImage(gif, 120, 200);
 		// draw peace sign
-		app.drawer.peace(drawCtx, playButton, audioData, speaker, speaker2, disc,canvasElement);
+		app.drawer.peace(drawCtx, playButton, audioData, speaker, speaker2, disc, canvasElement);
 		// draw stage lights
 		app.drawer.lights(drawCtx, canvasElement, audioData, wav);
 		// draw disco ball
 		app.drawer.disco(drawCtx, canvasElement);
 		// draw laser guns
-		app.drawer.laserGuns(drawCtx, audioData, laserRotation, fired, wav,canvasElement);
+		app.drawer.laserGuns(drawCtx, audioData, laserRotation, fired, wav, canvasElement);
 		// To Do triangle lasers that rotate and shoot arc lasers by clicking button
 		// manipulate pixels for visualizer
 		app.drawer.manipulatePixels(drawCtx, canvasElement, invert, noise, sepia, brightnessAmount);
