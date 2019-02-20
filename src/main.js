@@ -43,26 +43,26 @@ app.main = (function () {
 		// otherwise, decrease size of gif and canvas to the size they were before using saved values
 		if (full) {
 			full = false;
-			gif.style.marginLeft = gifML;
-			gif.style.marginTop = gifMT;
-			gif.style.width = gifW;
-			gif.style.height = gifH;
+			currentGif.style.marginLeft = gifML;
+			currentGif.style.marginTop = gifMT;
+			currentGif.style.width = gifW;
+			currentGif.style.height = gifH;
 			canvasElement.style.height = cH;
 			canvasElement.style.width = cW;
 		} else { // if full screen, enlarge gif and canvas to full size, keep track of old sizes
 			full = true;
-			gifML = gif.style.marginLeft;
-			gifMT = gif.style.marginTop;
-			gifH = gif.style.height;
-			gifW = gif.style.width;
+			gifML = currentGif.style.marginLeft;
+			gifMT = currentGif.style.marginTop;
+			gifH = currentGif.style.height;
+			gifW = currentGif.style.width;
 			cH = canvasElement.style.height;
 			cW = canvasElement.style.width;
 			canvasElement.style.height = "100%";
 			canvasElement.style.width = "100%";
-			gif.style.marginLeft = "25%";
-			gif.style.marginTop = "20%";
-			gif.style.height = "50%";
-			gif.style.width = "25%";
+			currentGif.style.marginLeft = "25%";
+			currentGif.style.marginTop = "20%";
+			currentGif.style.height = "50%";
+			currentGif.style.width = "25%";
 		}
 	});
 
@@ -130,7 +130,6 @@ app.main = (function () {
 	function setupUI() {
 		playButton = document.querySelector("#playButton");
 		playButton.onclick = e => {
-			console.log(`audioCtx.state = ${audioCtx.state}`);
 
 			// check if context is in suspended state (autoplay policy)
 			if (audioCtx.state == "suspended") {
